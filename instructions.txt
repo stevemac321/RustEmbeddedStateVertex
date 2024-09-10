@@ -1,0 +1,14 @@
+arm-none-eabi-readelf -S ./target/thumbv7m-none-eabi/debug/rust_nucleo
+
+arm-none-eabi-size ./target/thumbv7m-none-eabi/debug/rust_nucleo
+arm-none-eabi-objcopy -O binary rust_nucleo rust_nucleo.bin
+
+st-flash erase
+st-flash write rust_nucleo.bin 0x08000000
+st-flash reset
+
+openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
+
+gdb-multiarch -tui -q ./target/thumbv7m-none-eabi/debug/rust_nucleo
+
+
