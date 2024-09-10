@@ -13,6 +13,7 @@ A simple Rust-based embedded systems program that simulates adding vertices to a
 - **Rust Toolchain**: Ensure Rust and Cargo are installed. You can install Rust by following the instructions at [rustup.rs](https://rustup.rs).
 - **ARM Embedded Toolchain**: You'll need the ARM embedded toolchain for compiling the program for embedded systems.
 - **ST-Link Utility**: This is used for flashing the binary to an ARM Cortex-M microcontroller.
+- **STM32F401RE Microcontroller**: This program targets the STM32F401RE microcontroller.
 
 ## Building and Flashing the Program
 
@@ -21,4 +22,3 @@ A simple Rust-based embedded systems program that simulates adding vertices to a
 ```bash
 git clone https://github.com/stevemac321/RustStateVertex.git
 cd RustStateVertex
-
