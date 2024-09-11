@@ -12,14 +12,21 @@
             "name": "Debug (OpenOCD)",
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "Cargo Build (debug)",
+            //"preLaunchTask": "Cargo Build (debug)",
             "runToEntryPoint": "main",
-            "executable": "./target/thumbv7m-none-eabi/debug/rust_nucleo",
+            "executable": "${workspaceRoot}/target/thumbv7m-none-eabi/debug/rust_nucleo",
             /* Run `cargo build --example hello` and uncomment this line to run semi-hosting example */
             //"executable": "./target/thumbv7m-none-eabi/debug/examples/hello",
             "cpu": "cortex-m4",
             "device": "STM32F401RE",
             "gdbPath": "/usr/bin/gdb-multiarch",  // Path to gdb-multiarch
+            "setupCommands": [
+            {
+                "description": "Load GDB command script",
+                "text": "${workspaceRoot}/openocd.gdb",
+                "ignoreFailures": true
+            }
+]
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f4x.cfg"  // Updated to match STM32F4 series

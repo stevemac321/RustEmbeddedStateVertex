@@ -1,13 +1,20 @@
-use cortex_m_semihosting::hprintln;
+
 pub struct PriorityQueue {
-    heap: [i32; 32],  // Fixed-size array with 32 elements
+    heap: [u32; 32],  // Fixed-size array with 32 elements
     length: usize,
     heap_size: usize,
 }
 
 impl PriorityQueue {
+    pub fn new() -> Self {
+        PriorityQueue {
+            heap: [0; 32], // Start with an empty heap
+            length: 32,     // No elements initially
+            heap_size: 0,  // No elements in heap
+        }
+    }
     // Constructor with the array initialized from input
-    pub fn new(input: [i32; 32]) -> Self {
+    pub fn from_array(input: [u32; 32]) -> Self {
         let mut heap = [0; 32];
         
         // Copy input elements into heap
@@ -57,7 +64,7 @@ impl PriorityQueue {
 
     // Public API: Builds a max-heap from the current array
     pub fn build_max_heap(&mut self) {
-        self.heap_size = self.length;  // Set heap size to length
+        //self.heap_size = self.length;  // Set heap size to length
         for i in (0..self.length / 2).rev() {
             self.max_heapify(i);
         }
@@ -66,7 +73,7 @@ impl PriorityQueue {
     }
 
     // Public API: Insert an integer into the heap
-    pub fn insert(&mut self, value: i32) {
+    pub fn insert(&mut self, value: u32) {
         if self.heap_size == self.length {
             return;  // Heap is full
         }
@@ -74,7 +81,18 @@ impl PriorityQueue {
         self.heap_size += 1;
         self.build_max_heap();
     }
+    pub fn pop(&mut self) -> Option<u32> {
+        if self.heap_size == 0 {
+            return None;  // No elements left to pop
+        }
 
+        let top_value = self.heap[0];
+        self.heap[0] = self.heap[self.heap_size - 1];  // Move last element to top
+        self.heap_size -= 1;
+        self.max_heapify(0);  // Restore heap property
+        
+        Some(top_value)
+    }
     // Swap two elements in the heap
     pub fn swap(&mut self, i: usize, j: usize) {
         let tmp = self.heap[i];
@@ -83,7 +101,11 @@ impl PriorityQueue {
     }
     pub fn print_heap(&self) {
         for (i, &value) in self.heap.iter().enumerate() {
-            hprintln!("Index {}: {}", i, value);
+            //hprintln!("Index {}: {}", i, value);
+            let value = i;
         }
+    }
+    pub fn is_empty(&self) -> bool {
+        self.heap_size == 0
     }
 }
