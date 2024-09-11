@@ -16,3 +16,9 @@ st-flash erase
 st-flash write rust_nucleo.bin 0x08000000
 st-flash reset
 
+ps aux | grep -E "gdb|openocd"
+
+kill -9 <PID1> <PID2> ...
+
+
+
